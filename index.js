@@ -18,8 +18,8 @@ app.get("/docs",(req,res)=>{
 })
 
 const api = new LeetcodeApi();
-app.get("/profile/:username",api.getLeetCodeUserData)
-app.get("/contestdetails/:username",api.getLeetCodeUserContestDetails)
+app.get("/api/profile/:username",api.getLeetCodeUserData)
+app.get("/api/contest/:username",api.getLeetCodeUserContestDetails)
 app.listen(3000,()=>{
     console.log("started");
 })
