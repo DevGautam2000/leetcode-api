@@ -16,35 +16,50 @@
 
 
 <body>
-        
 
-        <div class="row">
-                <section class="col-2">
-                    <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark" style="width: 250px;"> <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"> <svg class="bi me-2" width="40" height="32"> </svg> <span class="fs-4">LeetApi</span> </a>
-                        <hr>
-                        <ul class="nav nav-pills flex-column mb-auto">
-                            <li class="nav-item"> <a href="/" class="nav-link text-white" aria-current="page"> <span class="ms-2">Home</span> </a> </li>
-                            <li> <a href="/docs" class="nav-link text-white"> <span class="ms-2">Documentation</span> </a> </li>
-                            <li> <a href="/contact" class="nav-link text-white"> <span
-                                        class="ms-2">Contact</span> </a> </li>
-                        </ul>
-                        <hr>
-                        <small>&copy;2022 Gautam Chandra Saha</small>
-                    </div>
-                   
-            </section>
-    
-            <section class="col-8">
-                <div class="jumbotron">
-                    <h1 class="display-4">Hello, world!</h1>
-                    <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                    <hr class="my-4">
-                    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                  </div>
-            </section>
-    
-        </div>
+
+    <div class="row">
+        <section class="col-2" style="position: fixed;">
+            <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark" style="width: 250px;"> <a
+                    href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32"> </svg> <span class="fs-4">LeetApi</span> </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item"> <a href="/" class="nav-link text-white" aria-current="page"> <span
+                                class="ms-2">Home</span> </a> </li>
+                    <li> <a href="/docs" class="nav-link text-white"> <span class="ms-2">Documentation</span> </a> </li>
+                    <li> <a href="/contact" class="nav-link text-white"> <span class="ms-2">Contact</span> </a> </li>
+                </ul>
+                <hr>
+                <small>&copy;2022 Gautam Chandra Saha</small>
+            </div>
+
+        </section>
+
+        <section class="col-9 py-5" style="overflow-y: scroll; margin-left: auto; margin-right: 5vw;">
+            <h3>Fetch User Profile</h3>
+            <div class="py-2"></div>
+            <div class="alert alert-light" role="alert" style="box-shadow: 0 0 20px #eee;">
+                <span style="color: tomato;">URL</span>: <span
+                    style="color: #4a82dd;">"https://leetapi.inginer.me/api/profile/</span><span
+                    style="color:  #9186f6;">&lt;USERNAME&gt;"</span>
+            </div>
+            <script src="https://gist.github.com/DevGautam2000/dc8666da0b2544613513f0cb6901186d.js"></script>
+
+            <div class="py-3"></div>
+
+            <h3>Fetch User Contest Details</h3>
+            <div class="py-2"></div>
+            <div class="alert alert-light" role="alert" style="box-shadow: 0 0 20px #eee;">
+                <span style="color: tomato;">URL</span>: <span
+                    style="color: #4a82dd;">"https://leetapi.inginer.me/api/contest/</span><span
+                    style="color: #9186f6;">&lt;USERNAME&gt;"</span>
+            </div>
+            <script src="https://gist.github.com/DevGautam2000/05255fef8084a4c966cb0cafdd486b35.js"></script>
+
+        </section>
+
+    </div>
 
 
     <!-- scripts -->
