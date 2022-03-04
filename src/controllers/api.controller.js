@@ -8,7 +8,7 @@ class LeetcodeApi{
             method:"POST",
             headers: { "Content-Type": "application/json" }
         }
-        
+
     getLeetCodeUserData(req,res){
         const username = req.params.username;
 
@@ -37,10 +37,14 @@ class LeetcodeApi{
         fetch(process.env.URL,LeetcodeApi.OPTIONS)
         .then(res=>res.json())
         .then(contestdata => {
+
+            if(!contestdata.errors){
             const ranks = contestdata?.data?.userContestRanking;
             const filtered = contestdata?.data?.userContestRankingHistory?.filter(con => con?.attended === true)
             const data  = {userContestRanking: ranks, userContestRankingHistory:filtered};
-           res.send(data);
+            res.send(data);
+
+            }else res.json({message: contestdata?.errors[0]?.message})
         })
         .catch(err=>console.error(err));
       }else res.json({message: "username invalid"});
