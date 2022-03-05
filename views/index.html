@@ -13,12 +13,21 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <style>
-    
-    html,body {
+    html,
+    body {
       overflow-x: hidden;
+
     }
 
-    h4{
+    ::-webkit-scrollbar-thumb {
+      width: 0px;
+    }
+
+    ::-webkit-scrollbar {
+      display: hidden;
+    }
+
+    h4 {
       color: grey;
       font-size: 1rem;
     }
@@ -87,7 +96,7 @@
           <div class="row py-2" style="height: 50%; width: 80%;">
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
               <h4>Ranking & Reputation</h4>
-              <div class="rank" ></div>
+              <div class="rank"></div>
             </div>
 
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
@@ -106,15 +115,15 @@
   </div>
 
 
-    <div class="toast" id="notice" style="position: absolute; top: 10px; right: 10px;">
-      <div class="toast-header">
-        <strong class="mr-auto">LeetApi</strong>
-      </div>
-      <div class="toast-body">
-        User does not exist.
-      </div>
+  <div class="toast" id="notice" style="position: absolute; top: 10px; right: 10px;">
+    <div class="toast-header">
+      <strong class="mr-auto">LeetApi</strong>
     </div>
-  
+    <div class="toast-body">
+      User does not exist.
+    </div>
+  </div>
+
 
 
   <!-- scripts -->
@@ -141,7 +150,7 @@
     function getContest() {
       const $$ = document.querySelectorAll.bind(document);
       fetch(`https://leetapi.inginer.me/api/contest/${username}`)
-      
+
         .then(res => res.json())
         .then(data => {
           if (data.message) {
