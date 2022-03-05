@@ -7,8 +7,12 @@ const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json());
-app.use(cors());
 
+app.use((req, res,next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+  });
+app.use(cors());
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname, '/views/index.html'));
     // res.send("Server Running 🔥🔥🔥🔥")
