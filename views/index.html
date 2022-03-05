@@ -158,18 +158,33 @@
 
         .then(res => res.json())
         .then(data => {
-          if (data.message) {
+          if (data.message ) {
             showToast();
             return;
           };
+
+          const contest = $$(".contest")[0];
+          contest.innerHTML = "";
+          if(data.userContestRanking === null){
+            contest.innerHTML = `
+            <ol class="list-group list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>NA</span>
+              </div>
+            </li>
+          </ol>`;
+            return;
+          }
+
+          
 
           const contestRank = Math.round(+data.userContestRanking.rating);
           const globalRank = data.userContestRanking.globalRanking;
           const topPercent = data.userContestRanking.topPercentage;
           const attended = data.userContestRanking.attendedContestsCount;
 
-          const contest = $$(".contest")[0];
-          contest.innerHTML = "";
+         
 
           contest.innerHTML += `
           <ol class="list-group list-group">
@@ -217,6 +232,8 @@
             return;
           };
 
+         
+
           const badges = data.data.matchedUser.badges;
           const progress = data.data.matchedUser.submitStats.acSubmissionNum;
           const rank = data.data.matchedUser.profile.ranking;
@@ -234,11 +251,17 @@
           solved_total.innerHTML = ""
           rank_plate.innerHTML = ""
 
-
-
           solved_total.innerHTML = progress[0].count;
-          badges.forEach(({ shortName, icon }) => {
-
+          if(badges.length === 0){
+            badge_plate.innerHTML=`
+            <ol class="list-group list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>NA</span>
+              </div>
+            </li>
+          </ol>`
+          }else badges.forEach(({ shortName, icon }) => {
             let pref = "https://leetcode.com";
             if (icon[0] === "/") {
               pref += icon;
