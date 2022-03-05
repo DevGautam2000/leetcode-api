@@ -1,5 +1,5 @@
 # leetcode-api
-Are you searching for something can fetch your profile and rankings on Leetcode so as to include it into your portfolios. Wait is over. Checkout this leetcode-api
+Are you searching for something that can fetch your profile and rankings on Leetcode so as to include it into your portfolios. Wait is over. Checkout this leetcode-api
 
 
 
