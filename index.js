@@ -1,10 +1,13 @@
 import express from "express";
 import path from 'path';
+import cors from "cors";
+
 import { LeetcodeApi } from "./src/controllers/api.controller.js";
 const __dirname = path.resolve();
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.get("/",(req,res)=>{
     res.sendFile(path.join(__dirname, '/views/index.html'));
