@@ -14,23 +14,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <style>
-        html,
-        body {
+        html {
+            overflow: scroll;
             overflow-x: hidden;
-
-        }
-
-        ::-webkit-scrollbar-thumb {
-            width: 0px;
         }
 
         ::-webkit-scrollbar {
-            display: hidden;
+            width: 0;
+            /* Remove scrollbar space */
+            background: transparent;
+            /* Optional: just make scrollbar invisible */
         }
 
-        h4 {
-            color: grey;
-            font-size: 1rem;
+        /* Optional: show position indicator in red */
+        ::-webkit-scrollbar-thumb {
+            background: #ffffff;
         }
 
         body {

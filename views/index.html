@@ -13,18 +13,21 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
   <style>
-    html,
-    body {
+    html {
+      overflow: scroll;
       overflow-x: hidden;
-
-    }
-
-    ::-webkit-scrollbar-thumb {
-      width: 0px;
     }
 
     ::-webkit-scrollbar {
-      display: hidden;
+      width: 0;
+      /* Remove scrollbar space */
+      background: transparent;
+      /* Optional: just make scrollbar invisible */
+    }
+
+    /* Optional: show position indicator in red */
+    ::-webkit-scrollbar-thumb {
+      background: #ffffff;
     }
 
     h4 {
