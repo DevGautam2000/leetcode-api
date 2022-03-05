@@ -12,12 +12,20 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
+  <style>
+    html {
+      overflow-x: hidden;
+    }
+
+    h4 {
+      color: grey;
+      font-size: 1rem;
+    }
+  </style>
 </head>
 
 
 <body>
-
-
   <div class="row">
     <section class="col-2">
       <div class="d-flex flex-column vh-100 flex-shrink-0 p-3 text-white bg-dark" style="width: 250px;"> <a href="/"
@@ -36,26 +44,39 @@
 
     </section>
 
-    <section class="col-10">
+    <section class="col-10" style="width: 80vw;">
       <div class="jumbotron">
         <h1 class="display-4">Hello, world!</h1>
         <p class="lead">This is an API for Leetcode users</p>
         <hr class="my-4">
-        <p>It uses the public leetcode API to fetch data and populate nore into it.</p>
-
+        <p class="alert alert-success">It uses the public leetcode API to fetch data and populate more into it.
+          Below is an example of what can be fetched usign this API to integrate in your resume dashboard.</p>
+        <hr class="my-4">
 
         <div class="container d-flex flex-column align-items-center" style="height: 50vh; width: 70vw;">
+
+
+          <div class="input-group mb-3" style="width: 80%;">
+            <input type="text" name="username" class="form-control" placeholder="Leetcode Username" />
+            <button class="btn btn-outline-secondary" type="button" id="button-addon2"
+              onclick="fetchData();">Submit</button>
+          </div>
+
           <div class="row py-2" style="height: 50%; width: 80%;">
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
               <div class="wrap">
                 <h4>Badges</h4>
-                <div class="badges"></div>
+                <div class="badges" style="height:160px;max-height:160px;overflow-y: scroll;"></div>
               </div>
             </div>
 
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
               <div class="wrap">
-                <h4>Solved</h4>
+                <div class="d-flex align-items-center">
+                  <h4>Solved</h4>
+                  <span class="solved_total badge bg-info rounded-pill mx-2"
+                    style="font-size:0.8rem; position: relative; bottom: 3px;"></span>
+                </div>
                 <div class="solved"></div>
               </div>
             </div>
@@ -64,11 +85,13 @@
 
           <div class="row py-2" style="height: 50%; width: 80%;">
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
-              <div class="percentage"></div>
+              <h4>Ranking & Reputation</h4>
+              <div class="rank"></div>
             </div>
 
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
-              <div class="solved"></div>
+              <h4>Contest Details</h4>
+              <div class="contest"></div>
             </div>
           </div>
         </div>
@@ -80,6 +103,17 @@
     </section>
 
   </div>
+
+
+  <div class="toast" id="notice" style="position: absolute; top: 10px; right: 10px;">
+    <div class="toast-header">
+      <strong class="mr-auto">LeetApi</strong>
+    </div>
+    <div class="toast-body">
+      User does not exist.
+    </div>
+  </div>
+
 
 
   <!-- scripts -->
@@ -94,13 +128,65 @@
     crossorigin="anonymous"></script>
 
   <script type="text/javascript">
+    let inp = document.getElementsByName("username")[0];
+    let username = inp.value || "devgautam1231";
+
+    function showToast() {
+      var myAlert = document.getElementById('notice');//select id of toast
+      var bsAlert = new bootstrap.Toast(myAlert);//inizialize it
+      bsAlert.show();//show it
+    }
 
     function getContest() {
+      const $$ = document.querySelectorAll.bind(document);
+      fetch(`https://leetapi.inginer.me/api/contest/${username}`)
 
-      fetch("https://leetapi.inginer.me/api/contest/devgautam1231")
         .then(res => res.json())
         .then(data => {
-          console.log(data);
+          if (data.message) {
+            showToast();
+            return;
+          };
+
+          const contestRank = Math.round(+data.userContestRanking.rating);
+          const globalRank = data.userContestRanking.globalRanking;
+          const topPercent = data.userContestRanking.topPercentage;
+          const attended = data.userContestRanking.attendedContestsCount;
+
+          const contest = $$(".contest")[0];
+          contest.innerHTML = "";
+
+          contest.innerHTML += `
+          <ol class="list-group list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Attended</span>
+              </div>
+              
+              <span class="badge bg-warning rounded-pill">${attended}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Top Percentage</span>
+              </div>
+              
+              <span class="badge bg-success rounded-pill">${topPercent}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Contest Rank</span>
+              </div>
+              
+              <span class="badge bg-info rounded-pill">${contestRank}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Global Rank</span>
+              </div>
+              
+              <span class="badge bg-info rounded-pill">${globalRank}</span>
+            </li>
+          </ol>`
         })
         .catch(err => console.error(err))
     }
@@ -108,15 +194,44 @@
     function getProfile() {
       const $$ = document.querySelectorAll.bind(document);
 
-      fetch("https://leetapi.inginer.me/api/profile/devgautam1231")
+      fetch(`https://leetapi.inginer.me/api/profile/${username}`)
         .then(res => res.json())
         .then(data => {
           console.log(data);
+
+          if (data.message) {
+            showToast();
+            return;
+          };
+
           const badges = data.data.matchedUser.badges;
           const progress = data.data.matchedUser.submitStats.acSubmissionNum;
+          const rank = data.data.matchedUser.profile.ranking;
+          const reputation = data.data.matchedUser.profile.reputation;
+          const points = data.data.matchedUser.contributions.points;
+
           const badge_plate = $$(".badges")[0];
           const prog_plate = $$(".solved")[0];
+          const solved_total = $$(".solved_total")[0];
+          const rank_plate = $$(".rank")[0];
+
+          // clean inputs
+          badge_plate.innerHTML = ""
+          prog_plate.innerHTML = ""
+          solved_total.innerHTML = ""
+          rank_plate.innerHTML = ""
+
+
+
+          solved_total.innerHTML = progress[0].count;
           badges.forEach(({ shortName, icon }) => {
+
+            let pref = "https://leetcode.com";
+            if (icon[0] === "/") {
+              pref += icon;
+              icon = pref;
+            }
+
             badge_plate.innerHTML += `
             
             <ol class="list-group list-group">
@@ -136,34 +251,69 @@
             "warning",
             "danger"
           ]
-          progress.forEach(({ count, difficulty },index) => {
-          
-            if(index !== 0) {
-            const n= (+count * 100)/ +data.data.allQuestionsCount[index].count;
-            prog_plate.innerHTML += `
+          progress.forEach(({ count, difficulty }, index) => {
+
+            if (index !== 0) {
+              const n = (+count * 100) / +data.data.allQuestionsCount[index].count;
+              prog_plate.innerHTML += `
             
             <ol class="list-group list-group">
             <li class="list-group-item d-flex justify-content-between align-items-start">
-              <div class="ms-2 me-auto">
-                <div class="fw-bold"> <span>${difficulty} <span style="color:grey;font-size:0.7rem;">
+              <div class="ms-2 me-auto" style="flex:1;">
+                <div class="fw"> <span>${difficulty} <span style="color:grey;font-size:0.7rem;">
                   ${n.toFixed(2)}%
                   </span> </span></div>
-                <span class="progress">
-                  <div class="progress-bar bg-${stat[index]}" role="progressbar" style="width: ${(+count * 100)/ +data.data.allQuestionsCount[index].count}%"></div>
-                </span>
+
+                  <div class="progress-bar bg-${stat[index]}" role="progressbar" style="height:8px;width: ${(+count * 100) / +data.data.allQuestionsCount[index].count}%"></div>
+
               </div>
               
-              <span class="badge bg-${stat[index]} rounded-pill">${count}</span>
+              <span class="badge bg-${stat[index]} rounded-pill">${count} / ${data.data.allQuestionsCount[index].count}</span>
             </li>
           </ol>`
-          
-            }})
+
+            }
+          })
+
+          //ranking 
+          rank_plate.innerHTML += `
+          <ol class="list-group list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Ranking</span>
+              </div>
+              
+              <span class="badge bg-warning rounded-pill">${rank}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Points</span>
+              </div>
+              
+              <span class="badge bg-success rounded-pill">${points}</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-start">
+              <div class="ms-2 me-auto">
+                <span>Reputation</span>
+              </div>
+              
+              <span class="badge bg-info rounded-pill">${reputation}</span>
+            </li>
+          </ol>`
+
         })
         .catch(err => console.error(err))
     }
 
+    fetchData = () => {
+
+      username = inp.value;
+      getContest();
+      getProfile();
+    };
     window.onload = () => {
-      // getContest();
+      inp.value = "devgautam1231"
+      getContest();
       getProfile();
     };
   </script>
