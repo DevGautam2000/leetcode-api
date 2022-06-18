@@ -51,7 +51,8 @@
                 class="ms-2">Home</span> </a> </li>
           <li> <a href="/docs" class="nav-link text-white"> <span class="ms-2">Documentation</span> </a> </li>
           <li> <a href="/contact" class="nav-link text-white"> <span class="ms-2">Contact</span> </a> </li>
-          <li> <a href="https://github.com/devgautam2000/leetcode-api" class="nav-link text-white"> <span class="ms-2">Github</span> </a> </li>
+          <li> <a href="https://github.com/devgautam2000/leetcode-api" class="nav-link text-white"> <span
+                class="ms-2">Github</span> </a> </li>
         </ul>
         <hr>
         <small>2022 &copy;Gautam Chandra Saha</small>
@@ -64,18 +65,19 @@
         <h1 class="display-4">Hello, world!</h1>
         <p class="lead">This is an API for Leetcode users</p>
         <hr class="my-4">
-        <p class="alert alert-success" style="font-size: 0.8rem;" >It uses the public leetcode API to fetch data and populate more into it.
+        <p class="alert alert-success" style="font-size: 0.8rem;">It uses the public leetcode API to fetch data and
+          populate more into it.
           Below is an example of what can be fetched using this API to integrate in dashboards or portfolios.</p>
         <hr class="my-4">
 
         <div class="container d-flex flex-column align-items-center" style="min-height: 50vh; width: 70vw;">
 
 
-          <div class="input-group mb-3" style="width: 80%;">
+          <form class="input-group mb-3" style="width: 80%;" onsubmit="fetchData(event)">
             <input type="text" name="username" class="form-control" placeholder="Leetcode Username" />
             <button class="btn btn-outline-secondary" type="button" id="button-addon2"
-              onclick="fetchData();">Submit</button>
-          </div>
+              onclick="fetchData(event);">Submit</button>
+          </form>
 
           <div class="row py-2" style="height: 50%; width: 80%;">
             <div class="col py-2 px-4" style="box-shadow: 0 0 10px #eee">
@@ -160,14 +162,14 @@
 
         .then(res => res.json())
         .then(data => {
-          if (data.message ) {
+          if (data.message) {
             showToast();
             return;
           };
 
           const contest = $$(".contest")[0];
           contest.innerHTML = "";
-          if(data.userContestRanking === null){
+          if (data.userContestRanking === null) {
             contest.innerHTML = `
             <ol class="list-group list-group">
             <li class="list-group-item d-flex justify-content-between align-items-start">
@@ -179,14 +181,14 @@
             return;
           }
 
-          
+
 
           const contestRank = Math.round(+data.userContestRanking.rating);
           const globalRank = data.userContestRanking.globalRanking;
           const topPercent = data.userContestRanking.topPercentage;
           const attended = data.userContestRanking.attendedContestsCount;
 
-         
+
 
           contest.innerHTML += `
           <ol class="list-group list-group">
@@ -234,7 +236,7 @@
             return;
           };
 
-         
+
 
           const badges = data.data.matchedUser.badges;
           const progress = data.data.matchedUser.submitStats.acSubmissionNum;
@@ -254,8 +256,8 @@
           rank_plate.innerHTML = ""
 
           solved_total.innerHTML = progress[0].count;
-          if(badges.length === 0){
-            badge_plate.innerHTML=`
+          if (badges.length === 0) {
+            badge_plate.innerHTML = `
             <ol class="list-group list-group">
             <li class="list-group-item d-flex justify-content-between align-items-start">
               <div class="ms-2 me-auto">
@@ -263,7 +265,7 @@
               </div>
             </li>
           </ol>`
-          }else badges.forEach(({ shortName, icon }) => {
+          } else badges.forEach(({ shortName, icon }) => {
             let pref = "https://leetcode.com";
             if (icon[0] === "/") {
               pref += icon;
@@ -343,8 +345,8 @@
         .catch(err => console.error(err))
     }
 
-    fetchData = () => {
-
+    fetchData = (e) => {
+      e.preventDefault();
       username = inp.value;
       getContest();
       getProfile();
