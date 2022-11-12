@@ -158,7 +158,7 @@
 
     function getContest() {
       const $$ = document.querySelectorAll.bind(document);
-      fetch(`https://leetapi.inginer.me/api/contest/${username}`)
+      fetch(`https://leetcode-api.vercel.app/api/contest/${username}`)
 
         .then(res => res.json())
         .then(data => {
@@ -228,7 +228,7 @@
     function getProfile() {
       const $$ = document.querySelectorAll.bind(document);
 
-      fetch(`https://leetapi.inginer.me/api/profile/${username}`)
+      fetch(`https://leetcode-api.vercel.app/api/profile/${username}`)
         .then(res => res.json())
         .then(data => {
           if (data.message) {
