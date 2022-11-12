@@ -3,7 +3,7 @@ Are you searching for something that can fetch your profile and rankings on Leet
 
 
 
-- Documentation and Usage at [leetapi.inginer.me](https://leetapi.inginer.tech/)
+- Documentation and Usage at [leetapi.inginer.tech](https://leetapi.inginer.tech/)
 
 
 <img width="1680" alt="image" src="https://user-images.githubusercontent.com/77929632/156883831-c9a1bf00-68f6-4bc6-852c-a81f766ed840.png">
